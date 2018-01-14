@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-lazy-init="default">
+	<alias name="app" alias="appName" />
+	<bean id="beanTest" class="org.spring.test.demo.BeanTest">
+	</bean>
+	<bean id="app" name="appName2" class="org.spring.test.demo.App">
+	</bean>
+	<bean id="maleStudent" class="org.spring.test.demo.MaleStudent" autowire="default" autowire-candidate="false">
+	</bean>
+	<bean id="feMaleStudent" class="org.spring.test.demo.FemaleStudent">
+	</bean>
+	<bean id="mathTeacher" name="teacher" class="org.spring.test.demo.MathTeacher" depends-on="maleStudent,feMaleStudent">
+	</bean>
+	<bean id="chTeacher" class="org.spring.test.demo.ChTeacher">
+		<property name="student" ref="feMaleStudent"></property>
+		<constructor-arg name="student" ref="feMaleStudent"></constructor-arg>
+	</bean>
+	<bean id="setBeanTest" class="org.spring.test.demo.SetBeanTest" lazy-init="true">
+	<property name="nullValue"><null></null></property>
+		<property name="props">
+			<props>
+				<prop key="pKey">我是props</prop>
+			</props>
+		</property>
+		<property name="list">
+			<list>
+				<value>我是list</value>
+				<map>
+					<entry>
+						<key>
+							<value>q</value>
+						</key>
+						<value>2</value>
+					</entry>
+				</map>
+			</list>
+		</property>
+		<property name="map">
+			<map>
+				<entry>
+					<key>
+						<value>我是key</value>
+					</key>
+					<value>我是map</value>
+				</entry>
+				<entry key="one" value="9.99"/>
+				
+			</map>
+		</property>
+	</bean>
+	<!-- <bean id="staticBeanFactory" class="org.spring.test.demo.StaticBeanFactory" 
+		></bean> -->
+	<!-- <bean id="staticBeanFactory1" class="org.spring.test.demo.StaticBeanFactory" 
+		factory-method="createStudent" factory-bean="staticBeanFactory"></bean> -->
+</beans>
